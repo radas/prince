@@ -7,11 +7,12 @@ import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
 import cz.tieto.princegame.domain.DirectionResolver;
-import cz.tieto.princegame.domain.Knight;
-import cz.tieto.princegame.domain.Sword;
+import cz.tieto.princegame.domain.obstacle.ObstacleDecorator;
+import cz.tieto.princegame.domain.obstacle.ObstacleDecoratorFactory;
+import cz.tieto.princegame.domain.weapon.Sword;
 import cz.tieto.princegame.gamerules.GameRule;
 
-public class KillKnightGameRule implements GameRule {
+public class KillObstacleGameRule implements GameRule {
 
 	@Override
 	public Action generateAction(Prince prince) {
@@ -32,24 +33,30 @@ public class KillKnightGameRule implements GameRule {
 			return null;
 		}
 		
-		boolean isKnight = Knight.isKnight(obstacle);
+		ObstacleDecorator decoratedObstacle = ObstacleDecoratorFactory.resolveObstacle(obstacle);
 		
-		if (!isKnight) {
+		boolean isKillable = decoratedObstacle.isKillable();
+		
+		if (!isKillable) {
+			
+			return null;
+			
+		}
+		
+		boolean isDead = decoratedObstacle.isDead();
+		
+		if (isDead) {
+			
+			// TODO return action that passes through the obstacle
 			return null;
 		}
 		
 		boolean hasSword = Sword.hasSword(prince);
 		
 		if (!hasSword) {
-			return null;
-		}
-		
-		boolean isKnightDead = Knight.isKnightDead(obstacle);
-		
-		if (isKnightDead) {
 			
+			// TODO change direction and return move action, we can not kill obstacle
 			return null;
-			
 		}
 		
 		Equipment sword = Sword.obtainSword(prince);

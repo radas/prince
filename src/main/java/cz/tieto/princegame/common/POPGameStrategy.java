@@ -2,16 +2,17 @@ package cz.tieto.princegame.common;
 
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.gameobject.Prince;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
+import cz.tieto.princegame.domain.prince.PrinceInstance;
 import cz.tieto.princegame.gamerules.GameRulesMap;
 import cz.tieto.princegame.gamerules.GameRulesMapImpl;
 import cz.tieto.princegame.gamerules.impl.EnterGateGameRule;
-import cz.tieto.princegame.gamerules.impl.GrabSwordGameRule;
+import cz.tieto.princegame.gamerules.impl.GrabEquipmentGameRule;
 import cz.tieto.princegame.gamerules.impl.HealGameRule;
-import cz.tieto.princegame.gamerules.impl.JumpChopperGameRule;
-import cz.tieto.princegame.gamerules.impl.JumpPitfallGameRule;
-import cz.tieto.princegame.gamerules.impl.KillDragonGameRule;
-import cz.tieto.princegame.gamerules.impl.KillKnightGameRule;
+import cz.tieto.princegame.gamerules.impl.JumpObstacleGameRule;
+import cz.tieto.princegame.gamerules.impl.KillObstacleGameRule;
 import cz.tieto.princegame.gamerules.impl.MoveGameRule;
+import cz.tieto.princegame.gamerules.impl.StepBackGameRule;
 
 public class POPGameStrategy implements GameStrategy {
 	
@@ -19,7 +20,19 @@ public class POPGameStrategy implements GameStrategy {
 	
 	public Action step(Prince prince) {
 		
+		PrinceDTO princeDto = PrinceInstance.getPrince();
+		
+		if (princeDto == null) {
+			
+			princeDto = new PrinceDTO(prince);
+			PrinceInstance.setPrince(princeDto);
+			
+		}
+		
 		Action action = gameRulesMap.generateAction(prince);
+		
+		princeDto.setHealthInPreviousRound(prince.getHealth());
+		princeDto.setActionInPreviousRound(action);
 		
 		return action;
 		
@@ -30,12 +43,12 @@ public class POPGameStrategy implements GameStrategy {
 		final GameRulesMap map = new GameRulesMapImpl();
 		
 		map.addGameRule(new EnterGateGameRule());
-		map.addGameRule(new GrabSwordGameRule());
+		map.addGameRule(new GrabEquipmentGameRule());
+		//map.addGameRule(new StepBackGameRule());
+		//map.addGameRule(new KillObstacleGameRule());
 		map.addGameRule(new HealGameRule());
-		map.addGameRule(new KillDragonGameRule());
-		map.addGameRule(new KillKnightGameRule());
-		map.addGameRule(new JumpChopperGameRule());
-		map.addGameRule(new JumpPitfallGameRule());
+		map.addGameRule(new KillObstacleGameRule());
+		map.addGameRule(new JumpObstacleGameRule());
 		
 		map.setDefaultGameRule(new MoveGameRule());
 		

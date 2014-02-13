@@ -1,4 +1,4 @@
-package cz.tieto.princegame.domain;
+package cz.tieto.princegame.domain.weapon;
 
 import java.util.Collection;
 

@@ -1,18 +1,16 @@
 package cz.tieto.princegame.gamerules.impl;
 
 import cz.tieto.princegame.common.action.Action;
-import cz.tieto.princegame.common.action.Use;
-import cz.tieto.princegame.common.gameobject.Equipment;
+import cz.tieto.princegame.common.action.Heal;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
 import cz.tieto.princegame.domain.DirectionResolver;
-import cz.tieto.princegame.domain.Dragon;
-import cz.tieto.princegame.domain.Knight;
-import cz.tieto.princegame.domain.Sword;
+import cz.tieto.princegame.domain.obstacle.ObstacleDecorator;
+import cz.tieto.princegame.domain.obstacle.ObstacleDecoratorFactory;
 import cz.tieto.princegame.gamerules.GameRule;
 
-public class KillDragonGameRule implements GameRule {
+public class JumpObstacleGameRule implements GameRule {
 
 	@Override
 	public Action generateAction(Prince prince) {
@@ -33,37 +31,28 @@ public class KillDragonGameRule implements GameRule {
 			return null;
 		}
 		
-		boolean isDragon = Dragon.isDragon(obstacle);
+		ObstacleDecorator decoratedObstacle = ObstacleDecoratorFactory.resolveObstacle(obstacle);
 		
-		if (!isDragon) {
-			return null;
-		}
+		boolean canBeJumpedOver = decoratedObstacle.canBeJumpedOver();
 		
-		boolean hasSword = Sword.hasSword(prince);
-		
-		if (!hasSword) {
-			return null;
-		}
-		
-		boolean isDragonDead = Dragon.isDragonDead(obstacle);
-		
-		if (isDragonDead) {
+		if (!canBeJumpedOver) {
 			
 			return null;
 			
 		}
 		
-		Equipment sword = Sword.obtainSword(prince);
+		boolean canBeJumpedOverNow = decoratedObstacle.canBePassedThroughNow();
 		
-		if (sword == null) {
+		// if obstacle can not be jumped over now, then wait and heal
+		if (!canBeJumpedOverNow) {
 			
-			return null;
+			return new Heal();
 			
 		}
 		
-		Action kill = new Use(sword, obstacle);
+		Action jump = DirectionResolver.resolveJumpByDirection();
 		
-		return kill;
+		return jump;
 		
 	}
 

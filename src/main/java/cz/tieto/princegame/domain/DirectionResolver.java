@@ -77,5 +77,11 @@ public class DirectionResolver {
 		return direction;
 		
 	}
+	
+	public static void setDirection(Direction newDirection) {
+		
+		direction = newDirection;
+		
+	}
 
 }

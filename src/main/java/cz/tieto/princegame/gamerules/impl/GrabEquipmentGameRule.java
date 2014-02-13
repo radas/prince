@@ -5,34 +5,40 @@ import cz.tieto.princegame.common.action.Grab;
 import cz.tieto.princegame.common.gameobject.Equipment;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Prince;
-import cz.tieto.princegame.domain.Sword;
 import cz.tieto.princegame.gamerules.GameRule;
 
-public class GrabSwordGameRule implements GameRule {
-
+public class GrabEquipmentGameRule implements GameRule {
+	
 	@Override
 	public Action generateAction(Prince prince) {
 		
 		Field actual = prince.look(0);
 		
-		boolean isSwordOnActual = isSwordOnActual(actual);
+		boolean isEquipmentOnActual = isEquipmentOnActual(actual);
 		
-		if (isSwordOnActual) {
-			 Action grab = new Grab();
-			 return grab;
+		if (!isEquipmentOnActual) {
+			
+			 return null;
+			 
 		}
 		
-		return null;
+		Action grab = new Grab();
+		
+		return grab;
 		
 	}
 	
-	private boolean isSwordOnActual(Field actual) {
+	private boolean isEquipmentOnActual(Field actual) {
 		
 		final Equipment e = actual.getEquipment();
-				
-		boolean isSwordOnActual = Sword.isSword(e);
 		
-		return isSwordOnActual;
+		if (e != null) {
+			
+			return true;
+			
+		}
+		
+		return false;
 		
 	}
 

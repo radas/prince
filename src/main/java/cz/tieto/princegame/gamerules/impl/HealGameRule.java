@@ -2,12 +2,11 @@ package cz.tieto.princegame.gamerules.impl;
 
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.action.Heal;
-import cz.tieto.princegame.common.gameobject.Field;
-import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
+import cz.tieto.princegame.domain.Direction;
 import cz.tieto.princegame.domain.DirectionResolver;
-import cz.tieto.princegame.domain.Health;
-import cz.tieto.princegame.domain.Knight;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
+import cz.tieto.princegame.domain.prince.PrinceInstance;
 import cz.tieto.princegame.gamerules.GameRule;
 
 public class HealGameRule implements GameRule {
@@ -15,51 +14,129 @@ public class HealGameRule implements GameRule {
 	@Override
 	public Action generateAction(Prince prince) {
 		
-		if ((Health.getActualHeath() - prince.getHealth()) >= 1) {
-			
-			return null;
-			
-		}
+		PrinceDTO princeDto = PrinceInstance.getPrince();
 		
+		Action actionInPreviousRound = princeDto.getActionInPreviousRound();
+		/*
 		// if there is no need for healing, return null;
-		if (prince.getHealth() >= Health.MAX_HEALTH) {
+		if (prince.getHealth() >= princeDto.getMaxHealth()) {
 			
 			return null;
 			
 		}
 		
-		int lookByDirection = DirectionResolver.resolveLookByDirection();
+		return new Heal();
+		*/
+		/*
+		int healthDiff = princeDto.getHealthInPreviousRound() - prince.getHealth();
 		
-		Field lookField = prince.look(lookByDirection);
-		
-		Obstacle obstacle = lookField.getObstacle();
-		
-		boolean isKnight = Knight.isKnight(obstacle);
-		
-		if (isKnight) {
+		if (actionInPreviousRound instanceof Heal) {
 			
-			boolean isDead = Knight.isKnightDead(obstacle);
+			if (healthDiff > 0) {
 			
-			if (isDead) {
+			
+		}
+		*/
+		boolean waitUntilHealed = princeDto.isWaitUntilHealed();
+		
+		if (waitUntilHealed) {
+			
+			if (prince.getHealth() < princeDto.getMaxHealth()) {
 				
-				// obstacle is knight, but it is dead, so we can heal on this position
-				Health.setActualHeath(prince.getHealth());
-				return new Heal();
+				if (actionInPreviousRound instanceof Heal) {
+					
+					//if (prince.getHealth() < 5) {
+					MoveGameRule moveGameRule = new MoveGameRule();
+					
+					Direction originalDirection = DirectionResolver.getDirection();
+					
+					DirectionResolver.changePrinceDirection();
+					
+					Action stepBackAction = moveGameRule.generateAction(prince);
+					
+					DirectionResolver.setDirection(originalDirection);
+					princeDto.setWaitUntilHealed(true);
+					System.out.println("StepBack");
+					return stepBackAction;
+					
+				} else {
+				
+					return new Heal();
+				
+				}
 				
 			} else {
 				
-				// if obstacle is knight that is not dead, we can not heal on this position,
-				// return null action now, then action resolution will go to
-				// default action that is move back
+				princeDto.setWaitUntilHealed(false);
+				
 				return null;
 				
 			}
 			
 		}
 		
-		Health.setActualHeath(prince.getHealth());
+		/*
+		if (actionInPreviousRound instanceof Heal) {
+			
+			if (princeDto.getHealthInPreviousRound() == prince.getHealth()) {
+				
+				//if (prince.getHealth() < 5) {
+				MoveGameRule moveGameRule = new MoveGameRule();
+				
+				Direction originalDirection = DirectionResolver.getDirection();
+				
+				DirectionResolver.changePrinceDirection();
+				
+				Action stepBackAction = moveGameRule.generateAction(prince);
+				
+				DirectionResolver.setDirection(originalDirection);
+				princeDto.setWaitUntilHealed(true);
+				System.out.println("StepBack");
+				return stepBackAction;
+				
+				//}
+				
+			}
+			
+		}
+		*/
 		
-		return new Heal();
+		int healthDiff = princeDto.getHealthInPreviousRound() - prince.getHealth();
+		
+		if (healthDiff > 3) {
+			
+			MoveGameRule moveGameRule = new MoveGameRule();
+			
+			Direction originalDirection = DirectionResolver.getDirection();
+			
+			DirectionResolver.changePrinceDirection();
+			
+			Action stepBackAction = moveGameRule.generateAction(prince);
+			
+			DirectionResolver.setDirection(originalDirection);
+			princeDto.setWaitUntilHealed(true);
+			System.out.println("StepBack3");
+			return stepBackAction;
+			
+		}
+		
+		if (prince.getHealth() <= 4) {
+		MoveGameRule moveGameRule = new MoveGameRule();
+		
+		Direction originalDirection = DirectionResolver.getDirection();
+		
+		DirectionResolver.changePrinceDirection();
+		
+		Action stepBackAction = moveGameRule.generateAction(prince);
+		
+		DirectionResolver.setDirection(originalDirection);
+		princeDto.setWaitUntilHealed(true);
+		System.out.println("StepBack2");
+		return stepBackAction;
+		
+		}
+		
+		return null;
 		
 	}
 
