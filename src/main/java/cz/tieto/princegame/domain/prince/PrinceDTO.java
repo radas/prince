@@ -15,7 +15,8 @@ public class PrinceDTO {
 	
 	public PrinceDTO(Prince prince) {
 		
-		maxHealth = prince.getHealth();
+		//maxHealth = prince.getHealth();
+            maxHealth = 11;
 		
 		healthInPreviousRound = prince.getHealth();
 		

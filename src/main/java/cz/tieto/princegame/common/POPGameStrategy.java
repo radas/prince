@@ -9,51 +9,46 @@ import cz.tieto.princegame.gamerules.GameRulesMapImpl;
 import cz.tieto.princegame.gamerules.impl.EnterGateGameRule;
 import cz.tieto.princegame.gamerules.impl.GrabEquipmentGameRule;
 import cz.tieto.princegame.gamerules.impl.HealGameRule;
-import cz.tieto.princegame.gamerules.impl.JumpObstacleGameRule;
 import cz.tieto.princegame.gamerules.impl.KillObstacleGameRule;
 import cz.tieto.princegame.gamerules.impl.MoveGameRule;
-import cz.tieto.princegame.gamerules.impl.StepBackGameRule;
 
 public class POPGameStrategy implements GameStrategy {
-	
-	private static final GameRulesMap gameRulesMap = initGameRulesMap();
-	
-	public Action step(Prince prince) {
-		
-		PrinceDTO princeDto = PrinceInstance.getPrince();
-		
-		if (princeDto == null) {
-			
-			princeDto = new PrinceDTO(prince);
-			PrinceInstance.setPrince(princeDto);
-			
-		}
-		
-		Action action = gameRulesMap.generateAction(prince);
-		
-		princeDto.setHealthInPreviousRound(prince.getHealth());
-		princeDto.setActionInPreviousRound(action);
-		
-		return action;
-		
-	}
 
-	private static final GameRulesMap initGameRulesMap() {
-		
-		final GameRulesMap map = new GameRulesMapImpl();
-		
-		map.addGameRule(new EnterGateGameRule());
-		map.addGameRule(new GrabEquipmentGameRule());
-		//map.addGameRule(new StepBackGameRule());
-		//map.addGameRule(new KillObstacleGameRule());
-		map.addGameRule(new HealGameRule());
-		map.addGameRule(new KillObstacleGameRule());
-		map.addGameRule(new JumpObstacleGameRule());
-		
-		map.setDefaultGameRule(new MoveGameRule());
-		
-		return map;
-		
-	}
-	
+    private static final GameRulesMap gameRulesMap = initGameRulesMap();
+
+    public Action step(Prince prince) {
+
+        PrinceDTO princeDto = PrinceInstance.getPrince();
+
+        if (princeDto == null) {
+
+            princeDto = new PrinceDTO(prince);
+            PrinceInstance.setPrince(princeDto);
+
+        }
+
+        Action action = gameRulesMap.generateAction(prince);
+
+        princeDto.setHealthInPreviousRound(prince.getHealth());
+        princeDto.setActionInPreviousRound(action);
+
+        return action;
+
+    }
+
+    private static GameRulesMap initGameRulesMap() {
+
+        final GameRulesMap map = new GameRulesMapImpl();
+
+        map.addGameRule(new EnterGateGameRule());
+        map.addGameRule(new GrabEquipmentGameRule());
+        map.addGameRule(new HealGameRule());
+        map.addGameRule(new KillObstacleGameRule());
+
+        map.setDefaultGameRule(new MoveGameRule());
+
+        return map;
+
+    }
+
 }

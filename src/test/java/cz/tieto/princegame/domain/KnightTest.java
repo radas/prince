@@ -11,7 +11,7 @@ import cz.tieto.princegame.client.gameobject.ObstacleImpl;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 
 public class KnightTest {
-
+/*
 	@Test
 	public void testIsKnightDead() {
 		Map<String, String> map = new HashMap<String,String>();
@@ -40,4 +40,5 @@ public class KnightTest {
 		boolean isDead = Knight.isKnightDead(obstacle);
 		assertFalse(isDead);
 	}
+    */
 }

@@ -3,54 +3,41 @@ package cz.tieto.princegame.domain.obstacle;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 
 public class PitfallDecorator extends ObstacleDecorator {
-	
-	public static final String PITFALL = "pitfall";
 
-	public PitfallDecorator(Obstacle obstacle) {
-		
-		super(obstacle);
-		
-	}
+    public static final String PITFALL = "pitfall";
 
-	@Override
-	public boolean isPassableThrough() {
-		
-		return true;
-		
-	}
+    public PitfallDecorator(Obstacle obstacle) {
 
-	@Override
-	public boolean canBePassedThroughNow() {
-		
-		return true;
-		
-	}
+        super(obstacle);
 
-	@Override
-	public String getPassThroughAction() {
-		return "JUMP";
-	}
+    }
 
-	@Override
-	public boolean isKillable() {
-		
-		return false;
-		
-	}
+    @Override
+    public boolean canBeJumpedOver() {
 
-	@Override
-	public boolean isDead() {
-		throw new UnsupportedOperationException("Can not be applied on Pitfall");
-	}
+        return true;
 
-	@Override
-	public int getWoundOnContact() {
-		throw new UnsupportedOperationException("Can not be applied on Pitfall");
-	}
-	
-	@Override
-	public boolean canBeJumpedOver() {
-		return true;
-	}
+    }
+
+    @Override
+    public boolean canBeJumpedOverNow() {
+
+        return true;
+
+    }
+
+    @Override
+    public boolean isKillable() {
+
+        return false;
+
+    }
+
+    @Override
+    public boolean isDead() {
+
+        throw new UnsupportedOperationException("Can not be applied on Pitfall");
+
+    }
 
 }
