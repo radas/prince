@@ -7,6 +7,8 @@ public class KnightDecorator extends ObstacleDecorator {
 
     public static final String KNIGHT = "knight";
 
+    public static final String DEAD = "dead";
+
     public KnightDecorator(Obstacle obstacle) {
 
         super(obstacle);
@@ -36,7 +38,7 @@ public class KnightDecorator extends ObstacleDecorator {
     @Override
     public boolean isDead() {
 
-        String dead = getObstacle().getProperty("dead");
+        String dead = getObstacle().getProperty(DEAD);
 
         if (dead == null) {
 

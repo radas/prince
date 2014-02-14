@@ -5,7 +5,7 @@ import cz.tieto.princegame.common.action.Grab;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
-import cz.tieto.princegame.domain.DirectionResolver;
+import cz.tieto.princegame.domain.scene.DirectionResolver;
 import cz.tieto.princegame.domain.obstacle.ObstacleDecorator;
 import cz.tieto.princegame.domain.obstacle.ObstacleDecoratorFactory;
 import cz.tieto.princegame.gamerules.GameRule;

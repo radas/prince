@@ -24,7 +24,7 @@ public class POPGameStrategy implements GameStrategy {
 
             princeDto = new PrinceDTO(prince);
             PrinceInstance.setPrince(princeDto);
-
+            
         }
 
         Action action = gameRulesMap.generateAction(prince);

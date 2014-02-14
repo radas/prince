@@ -7,6 +7,8 @@ public class DragonDecorator extends ObstacleDecorator {
 
     public static final String DRAGON = "dragon";
 
+    public static final String DEAD = "dead";
+
     public DragonDecorator(Obstacle obstacle) {
 
         super(obstacle);
@@ -36,7 +38,7 @@ public class DragonDecorator extends ObstacleDecorator {
     @Override
     public boolean isDead() {
 
-        String dead = getObstacle().getProperty("dead");
+        String dead = getObstacle().getProperty(DEAD);
 
         if (dead == null) {
 

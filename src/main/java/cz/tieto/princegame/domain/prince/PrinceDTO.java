@@ -6,7 +6,7 @@ import cz.tieto.princegame.common.gameobject.Prince;
 public class PrinceDTO {
 
     private final int maxHealth;
-    
+
     private int actualHealth;
 
     private int healthInPreviousRound;
@@ -17,16 +17,15 @@ public class PrinceDTO {
 
     public PrinceDTO(Prince prince) {
 
-        maxHealth = prince.getMaxHealth()+10;
-        
+        maxHealth = prince.getMaxHealth() + 10;
+
         actualHealth = prince.getHealth();
 
         healthInPreviousRound = prince.getHealth();
 
     }
-    
 
-	public int getMaxHealth() {
+    public int getMaxHealth() {
         return maxHealth;
     }
 
@@ -47,9 +46,9 @@ public class PrinceDTO {
     }
 
     public boolean isWaitUntilHealed() {
-    	if (healthInPreviousRound == actualHealth) {
-    		waitUntilHealed = false;
-    	}
+        if (healthInPreviousRound == actualHealth) {
+            waitUntilHealed = false;
+        }
         return waitUntilHealed;
     }
 

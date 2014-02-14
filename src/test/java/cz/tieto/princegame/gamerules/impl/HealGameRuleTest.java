@@ -19,7 +19,7 @@ import cz.tieto.princegame.common.action.Heal;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
-import cz.tieto.princegame.domain.DirectionResolver;
+import cz.tieto.princegame.domain.scene.DirectionResolver;
 import cz.tieto.princegame.gamerules.GameRule;
 
 public class HealGameRuleTest {
@@ -35,7 +35,7 @@ public class HealGameRuleTest {
     }
 
     @Test
-    public void testHealLookForwardWithNoKnightWithLowHealth() {
+    public void testHealLookForwardWithNoObstacleWithLowHealth() {
 
         // arrange
         DirectionResolver.setDirectionForward();
@@ -56,7 +56,7 @@ public class HealGameRuleTest {
     }
 
     @Test
-    public void testHealLookBackwardWithNoKnightWithLowHealth() {
+    public void testHealLookBackwardWithNoObstacleWithLowHealth() {
 
         // arrange
         DirectionResolver.setDirectionBackward();
