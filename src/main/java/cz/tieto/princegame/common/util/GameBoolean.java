@@ -1,4 +1,4 @@
-package cz.tieto.princegame.common;
+package cz.tieto.princegame.common.util;
 
 public interface GameBoolean {
     

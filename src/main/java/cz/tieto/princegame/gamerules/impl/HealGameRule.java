@@ -12,6 +12,8 @@ import cz.tieto.princegame.gamerules.GameRule;
 public class HealGameRule implements GameRule {
     
     private final int MIN_HEALTH_TO_CONTINUE = 6;
+    
+    private final int MAX_WOUND_ON_FIELD = -4;
 
     @Override
     public Action generateAction(Prince prince) {
@@ -32,9 +34,9 @@ public class HealGameRule implements GameRule {
         
         int healthDiff = prince.getHealth() - princeDto.getHealthInPreviousRound();
         
-        if (healthDiff < -3) {
+        if (healthDiff <= MAX_WOUND_ON_FIELD) {
             
-            if (prince.getHealth() < 6) {
+            if (prince.getHealth() < MIN_HEALTH_TO_CONTINUE) {
             MoveGameRule moveGameRule = new MoveGameRule();
 
                     Direction originalDirection = DirectionResolver.getDirection();

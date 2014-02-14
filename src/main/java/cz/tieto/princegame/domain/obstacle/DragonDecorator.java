@@ -1,6 +1,6 @@
 package cz.tieto.princegame.domain.obstacle;
 
-import cz.tieto.princegame.common.GameBoolean;
+import cz.tieto.princegame.common.util.GameBoolean;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 
 public class DragonDecorator extends ObstacleDecorator {
