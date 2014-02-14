@@ -37,17 +37,8 @@ public class HealGameRule implements GameRule {
         if (healthDiff <= MAX_WOUND_ON_FIELD) {
 
             if (prince.getHealth() < MIN_HEALTH_TO_CONTINUE) {
-                MoveGameRule moveGameRule = new MoveGameRule();
 
-                Direction originalDirection = princeDto.getDirection();
-
-                princeDto.changePrinceDirection();
-
-                Action stepBackAction = moveGameRule.generateAction(prince);
-
-                princeDto.setDirection(originalDirection);
-                princeDto.setWaitUntilHealed(true);
-                System.out.println("StepBack");
+                Action stepBackAction = createStepBackAction(princeDto, prince);
                 return stepBackAction;
 
             }
@@ -57,17 +48,7 @@ public class HealGameRule implements GameRule {
         // heal in previous round, but something is killing us constantly,
         // we must step backward
         if ((actionInPreviousRound instanceof Heal) && (healthDiff <= 0)) {
-            MoveGameRule moveGameRule = new MoveGameRule();
-
-            Direction originalDirection = princeDto.getDirection();
-
-            princeDto.changePrinceDirection();
-
-            Action stepBackAction = moveGameRule.generateAction(prince);
-
-            princeDto.setDirection(originalDirection);
-            princeDto.setWaitUntilHealed(true);
-            System.out.println("StepBack");
+            Action stepBackAction = createStepBackAction(princeDto, prince);
             return stepBackAction;
         }
 
@@ -86,6 +67,23 @@ public class HealGameRule implements GameRule {
         }
 
         return null;
+
+    }
+
+    private Action createStepBackAction(PrinceDTO princeDto, Prince prince) {
+
+        MoveGameRule moveGameRule = new MoveGameRule();
+
+        Direction originalDirection = princeDto.getDirection();
+
+        princeDto.changePrinceDirection();
+
+        Action stepBackAction = moveGameRule.generateAction(prince);
+
+        princeDto.setDirection(originalDirection);
+        princeDto.setWaitUntilHealed(true);
+
+        return stepBackAction;
 
     }
 
