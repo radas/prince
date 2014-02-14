@@ -1,5 +1,6 @@
 package cz.tieto.princegame.domain.scene;
 
+import cz.tieto.princegame.client.gameobject.PrinceImpl;
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -9,6 +10,8 @@ import cz.tieto.princegame.common.action.JumpBackward;
 import cz.tieto.princegame.common.action.JumpForward;
 import cz.tieto.princegame.common.action.MoveBackward;
 import cz.tieto.princegame.common.action.MoveForward;
+import cz.tieto.princegame.domain.PrinceGameInstance;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
 
 public class DirectionResolverTest {
 
@@ -16,7 +19,10 @@ public class DirectionResolverTest {
     public void testResolveLookByDirectionForward() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         // act
         int look = DirectionResolver.resolveLookByDirection();
@@ -30,7 +36,10 @@ public class DirectionResolverTest {
     public void testResolveLookByDirectionBackward() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         // act
         int look = DirectionResolver.resolveLookByDirection();
@@ -44,7 +53,10 @@ public class DirectionResolverTest {
     public void testResolveJumpByDirectionForward() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         // act
         Action action = DirectionResolver.resolveJumpByDirection();
@@ -58,7 +70,10 @@ public class DirectionResolverTest {
     public void testResolveJumpByDirectionBackward() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         // act
         Action action = DirectionResolver.resolveJumpByDirection();
@@ -72,7 +87,10 @@ public class DirectionResolverTest {
     public void testResolveMoveByDirectionForward() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         // act
         Action action = DirectionResolver.resolveMoveByDirection();
@@ -86,7 +104,10 @@ public class DirectionResolverTest {
     public void testResolveMoveByDirectionBackward() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         // act
         Action action = DirectionResolver.resolveMoveByDirection();
@@ -100,13 +121,16 @@ public class DirectionResolverTest {
     public void testChangePrinceDirection() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         // act
-        DirectionResolver.changePrinceDirection();
+        princeDto.changePrinceDirection();
 
         // assert
-        Assert.assertEquals(Direction.BACKWARD, DirectionResolver.getDirection());
+        Assert.assertEquals(Direction.BACKWARD, princeDto.getDirection());
 
     }
 

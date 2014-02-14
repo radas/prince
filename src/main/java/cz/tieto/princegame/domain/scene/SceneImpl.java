@@ -2,32 +2,36 @@ package cz.tieto.princegame.domain.scene;
 
 public class SceneImpl implements Scene {
 
-    public void appendSceneElement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private boolean pathClearForJumpForward;
+
+    private boolean pathClearForJumpBackward;
+
+    @Override
+    public boolean isPathClearForJumpForward() {
+
+        return pathClearForJumpForward;
+
     }
 
-    public void prependSceneElement() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public void setPathClearForJumpForward(boolean pathClearForJumpForward) {
+
+        this.pathClearForJumpForward = pathClearForJumpForward;
+
     }
 
-    public int currentScenePosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public boolean isPathClearForJumpBackward() {
+
+        return pathClearForJumpBackward;
+
     }
 
-    public boolean isPathClearForJumpForward(int currentScenePosition) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    @Override
+    public void setPathClearForJumpBackward(boolean pathClearForJumpBackward) {
 
-    public boolean isPathClearForJumpBackward(int currentScenePosition) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        this.pathClearForJumpBackward = pathClearForJumpBackward;
 
-    public boolean isAtSceneEnd() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public boolean isAtSceneStart() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

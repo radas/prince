@@ -5,15 +5,20 @@ import cz.tieto.princegame.common.action.Grab;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
+import cz.tieto.princegame.domain.PrinceGameInstance;
 import cz.tieto.princegame.domain.scene.DirectionResolver;
 import cz.tieto.princegame.domain.obstacle.ObstacleDecorator;
 import cz.tieto.princegame.domain.obstacle.ObstacleDecoratorFactory;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
 import cz.tieto.princegame.gamerules.GameRule;
 
 public class MoveGameRule implements GameRule {
 
     @Override
     public Action generateAction(Prince prince) {
+
+        PrinceGameInstance princeGameInstance = PrinceGameInstance.getInstance();
+        PrinceDTO princeDto = princeGameInstance.getPrinceDto();
 
         int lookByDirection = DirectionResolver.resolveLookByDirection();
 
@@ -22,7 +27,7 @@ public class MoveGameRule implements GameRule {
         // game scene boundary reached, change direction and continue on move/jump
         if (lookField == null) {
 
-            DirectionResolver.changePrinceDirection();
+            princeDto.changePrinceDirection();
             Action action = getActionWithObstacle(prince);
             if (action != null) {
                 return action;
@@ -47,7 +52,7 @@ public class MoveGameRule implements GameRule {
 
 	// there is obstacle, but we can not move in this direction,
         // so change prince direction and get appropriate action
-        DirectionResolver.changePrinceDirection();
+        princeDto.changePrinceDirection();
 
         Action actionAfterChange = getActionWithObstacle(prince);
         if (actionAfterChange != null) {

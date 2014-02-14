@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import cz.tieto.princegame.client.gameobject.FieldImpl;
 import cz.tieto.princegame.client.gameobject.ObstacleImpl;
+import cz.tieto.princegame.client.gameobject.PrinceImpl;
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.action.Grab;
 import cz.tieto.princegame.common.action.JumpBackward;
@@ -21,9 +22,11 @@ import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Obstacle;
 import cz.tieto.princegame.common.gameobject.Prince;
 import cz.tieto.princegame.common.util.GameBoolean;
+import cz.tieto.princegame.domain.PrinceGameInstance;
 import cz.tieto.princegame.domain.obstacle.ChopperDecorator;
 import cz.tieto.princegame.domain.obstacle.KnightDecorator;
 import cz.tieto.princegame.domain.obstacle.PitfallDecorator;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
 import cz.tieto.princegame.domain.scene.DirectionResolver;
 import cz.tieto.princegame.gamerules.GameRule;
 import java.util.HashMap;
@@ -45,7 +48,10 @@ public class MoveGameRuleTest {
     public void testMoveForwardNoObstacle() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Field fieldWithNoObstacle = new FieldImpl(null, null, false);
 
@@ -65,7 +71,10 @@ public class MoveGameRuleTest {
     public void testMoveBackwardNoObstacle() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         Field fieldWithNoObstacle = new FieldImpl(null, null, false);
 
@@ -85,7 +94,10 @@ public class MoveGameRuleTest {
     public void testJumpForwardWithPitfall() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Obstacle obstacle = new ObstacleImpl(PitfallDecorator.PITFALL, 1, null);
 
@@ -107,7 +119,10 @@ public class MoveGameRuleTest {
     public void testJumpBackwardWithPitfall() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         Obstacle obstacle = new ObstacleImpl(PitfallDecorator.PITFALL, 1, null);
 
@@ -129,7 +144,10 @@ public class MoveGameRuleTest {
     public void testMoveForwardWithDeadObstacle() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Map<String, String> map = new HashMap<String, String>();
 
@@ -155,7 +173,10 @@ public class MoveGameRuleTest {
     public void testMoveBackwardWithDeadObstacle() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         Map<String, String> map = new HashMap<String, String>();
 
@@ -181,7 +202,10 @@ public class MoveGameRuleTest {
     public void testJumpForwardWithClosedChopper() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Map<String, String> map = new HashMap<String, String>();
 
@@ -208,7 +232,10 @@ public class MoveGameRuleTest {
     public void testJumpBackwardWithClosedChopper() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         Map<String, String> map = new HashMap<String, String>();
 
@@ -235,7 +262,10 @@ public class MoveGameRuleTest {
     public void testSceneEndReached() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Field fieldWithoutObstacle = new FieldImpl(null, null, false);
 
@@ -256,7 +286,10 @@ public class MoveGameRuleTest {
     public void testSceneStartReached() {
 
         // arrange
-        DirectionResolver.setDirectionBackward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionBackward();
 
         Field fieldWithoutObstacle = new FieldImpl(null, null, false);
 

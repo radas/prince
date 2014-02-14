@@ -2,18 +2,12 @@ package cz.tieto.princegame.domain.scene;
 
 public interface Scene {
 
-    boolean isAtSceneEnd();
+    boolean isPathClearForJumpForward();
 
-    boolean isAtSceneStart();
+    boolean isPathClearForJumpBackward();
 
-    void appendSceneElement();
+    void setPathClearForJumpForward(boolean pathClearForJumpForward);
 
-    void prependSceneElement();
-
-    int currentScenePosition();
-
-    boolean isPathClearForJumpForward(int currentScenePosition);
-
-    boolean isPathClearForJumpBackward(int currentScenePosition);
+    void setPathClearForJumpBackward(boolean pathClearForJumpBackward);
 
 }

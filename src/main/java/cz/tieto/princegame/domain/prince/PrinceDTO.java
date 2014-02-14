@@ -2,6 +2,7 @@ package cz.tieto.princegame.domain.prince;
 
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.gameobject.Prince;
+import cz.tieto.princegame.domain.scene.Direction;
 
 public class PrinceDTO {
 
@@ -15,6 +16,8 @@ public class PrinceDTO {
 
     private Action actionInPreviousRound;
 
+    private Direction direction;
+
     public PrinceDTO(Prince prince) {
 
         maxHealth = prince.getMaxHealth() + 10;
@@ -22,6 +25,8 @@ public class PrinceDTO {
         actualHealth = prince.getHealth();
 
         healthInPreviousRound = prince.getHealth();
+
+        direction = direction.FORWARD;
 
     }
 
@@ -54,6 +59,44 @@ public class PrinceDTO {
 
     public void setWaitUntilHealed(boolean waitUntilHealed) {
         this.waitUntilHealed = waitUntilHealed;
+    }
+
+    public void changePrinceDirection() {
+
+        if (direction.compareTo(Direction.FORWARD) == 0) {
+
+            direction = Direction.BACKWARD;
+
+        } else {
+
+            direction = Direction.FORWARD;
+
+        }
+
+    }
+
+    public void setDirectionForward() {
+
+        direction = Direction.FORWARD;
+
+    }
+
+    public void setDirectionBackward() {
+
+        direction = Direction.BACKWARD;
+
+    }
+
+    public Direction getDirection() {
+
+        return direction;
+
+    }
+
+    public void setDirection(Direction newDirection) {
+
+        direction = newDirection;
+
     }
 
 }

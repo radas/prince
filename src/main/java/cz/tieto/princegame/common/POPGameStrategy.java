@@ -2,8 +2,8 @@ package cz.tieto.princegame.common;
 
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.gameobject.Prince;
+import cz.tieto.princegame.domain.PrinceGameInstance;
 import cz.tieto.princegame.domain.prince.PrinceDTO;
-import cz.tieto.princegame.domain.prince.PrinceInstance;
 import cz.tieto.princegame.gamerules.GameRulesMap;
 import cz.tieto.princegame.gamerules.GameRulesMapImpl;
 import cz.tieto.princegame.gamerules.impl.EnterGateGameRule;
@@ -18,16 +18,19 @@ public class POPGameStrategy implements GameStrategy {
 
     public Action step(Prince prince) {
 
-        PrinceDTO princeDto = PrinceInstance.getPrince();
+        PrinceGameInstance princeGameInstance = PrinceGameInstance.getInstance();
 
-        if (princeDto == null) {
+        // 1st round
+        if (princeGameInstance == null) {
 
-            princeDto = new PrinceDTO(prince);
-            PrinceInstance.setPrince(princeDto);
+            PrinceGameInstance.initInstance(prince);
+            princeGameInstance = PrinceGameInstance.getInstance();
             
         }
 
         Action action = gameRulesMap.generateAction(prince);
+
+        PrinceDTO princeDto = princeGameInstance.getPrinceDto();
 
         princeDto.setHealthInPreviousRound(prince.getHealth());
         princeDto.setActionInPreviousRound(action);

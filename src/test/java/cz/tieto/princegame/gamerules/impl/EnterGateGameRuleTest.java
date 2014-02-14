@@ -9,11 +9,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import cz.tieto.princegame.client.gameobject.FieldImpl;
+import cz.tieto.princegame.client.gameobject.PrinceImpl;
 import cz.tieto.princegame.common.action.Action;
 import cz.tieto.princegame.common.action.EnterGate;
 import cz.tieto.princegame.common.gameobject.Field;
 import cz.tieto.princegame.common.gameobject.Prince;
-import cz.tieto.princegame.domain.scene.DirectionResolver;
+import cz.tieto.princegame.domain.PrinceGameInstance;
+import cz.tieto.princegame.domain.prince.PrinceDTO;
 import cz.tieto.princegame.gamerules.GameRule;
 
 public class EnterGateGameRuleTest {
@@ -32,7 +34,10 @@ public class EnterGateGameRuleTest {
     public void testFieldIsGate() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Field gateField = new FieldImpl(null, null, true);
 
@@ -52,7 +57,10 @@ public class EnterGateGameRuleTest {
     public void testFieldIsNotGate() {
 
         // arrange
-        DirectionResolver.setDirectionForward();
+        PrinceGameInstance.initInstance(new PrinceImpl(1, null, 1, 1, null, null));
+        PrinceDTO princeDto = PrinceGameInstance.getInstance().getPrinceDto();
+
+        princeDto.setDirectionForward();
 
         Field gateField = new FieldImpl(null, null, false);
 
