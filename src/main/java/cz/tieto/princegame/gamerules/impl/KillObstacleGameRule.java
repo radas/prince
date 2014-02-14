@@ -47,16 +47,16 @@ public class KillObstacleGameRule implements GameRule {
 
         if (isDead) {
 
-            // TODO return action that passes through the obstacle
             return null;
+
         }
 
         boolean hasSword = Sword.hasSword(prince);
 
         if (!hasSword) {
 
-            // TODO change direction and return move action, we can not kill obstacle
             return null;
+
         }
 
         Equipment sword = Sword.obtainSword(prince);

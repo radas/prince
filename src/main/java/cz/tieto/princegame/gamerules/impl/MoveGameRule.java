@@ -49,11 +49,13 @@ public class MoveGameRule implements GameRule {
         // so change prince direction and get appropriate action
         DirectionResolver.changePrinceDirection();
 
-        Action action2 = getActionWithObstacle(prince);
-        if (action2 != null) {
-            return action2;
+        Action actionAfterChange = getActionWithObstacle(prince);
+        if (actionAfterChange != null) {
+            return actionAfterChange;
         }
-        throw new IllegalStateException();
+
+        // we can not resolve move from this position, throw exception
+        throw new IllegalStateException("Can not resolve move from current position");
 
     }
 
